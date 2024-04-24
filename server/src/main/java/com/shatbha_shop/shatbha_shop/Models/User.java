@@ -29,9 +29,11 @@ public class User {
     private String id;
 
     @NotBlank(message = "الرجاء ادخال الاسم الاول")
+    @NotNull(message = "الرجاء ادخال الاسم الاول")
     private String firstname;
 
     @NotBlank(message = "الرجاء ادخال الاسم الاخير")
+    @NotNull(message = "الرجاء ادخال الاسم الاخير")
     private String lastname;
 
     @Email(message = "الرجاء ادخال بريد الكتروني صحيح")
