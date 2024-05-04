@@ -32,10 +32,8 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 				params: {
 					page: pageNumber,
 					limit: limit,
-					newPrice: {
-						gte: gte,
-						lte: lte,
-					},
+					newPricegte: gte,
+					newPricelte: lte,
 					sort: sort,
 					title: searchParams.get("sr"),
 					tags: searchParams.get("cat"),
@@ -44,10 +42,10 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 		);
 
 	useEffect(() => {
-		if (data?.data?.products?.productCount) {
-			setItemsNubmer(data?.data?.products?.productCount);
+		if (data?.data?.numberOfElements) {
+			setItemsNubmer(data?.data?.numberOfElements);
 		}
-	}, [data?.data?.products?.productCount]);
+	}, [data?.data?.numberOfElements]);
 
 	const [pageNumberLimit, setPageNumberLimit] = useState(4);
 	const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(4);
@@ -82,7 +80,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 	}
 
 	const totalPageNumber = Math.ceil(
-		data && data?.data?.products?.productCount / limit
+		data && data?.data?.numberOfElements / limit
 	);
 	const pagesArray = new Array(totalPageNumber).fill().map((_, i) => i + 1);
 	let pageIncrementBtn = null;
@@ -116,7 +114,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 		);
 	}
 
-	if (data && data?.data?.products?.productCount === 0) {
+	if (data && data?.data?.numberOfElements === 0) {
 		return (
 			<section className="d-flex flex-column gap-5 store-section">
 				<h1
@@ -138,7 +136,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 						نتائج البحث عن: {searchParams.get("sr")}
 					</h1>
 				)}
-				{searchParams.get("cat") && !data?.data?.products?.category ? (
+				{searchParams.get("cat") && !data?.data?.content?.category ? (
 					<h1
 						style={{
 							fontSize: "3rem",
@@ -156,7 +154,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 							color: "var(--text2-color)",
 						}}
 					>
-						القسم: {data?.data?.products?.category}
+						القسم: {data?.data?.content?.category}
 					</h1>
 				)}
 				<div className="is-loading align-items-start">
@@ -166,7 +164,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 		);
 	}
 
-	if (data && data?.data?.products?.productCount > 0) {
+	if (data && data?.data?.numberOfElements > 0) {
 		return (
 			<section className="d-flex flex-column gap-4 store-section">
 				<h1
@@ -188,7 +186,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 						نتائج البحث عن: {searchParams.get("sr")}
 					</h1>
 				)}
-				{searchParams.get("cat") && !data?.data?.products?.category ? (
+				{searchParams.get("cat") && !data?.data?.content?.category ? (
 					<h1
 						style={{
 							fontSize: "3rem",
@@ -199,7 +197,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 						القسم: {searchParams.get("cat")}
 					</h1>
 				) : (
-					data?.data?.products?.category && (
+					data?.data?.content?.category && (
 						<h1
 							style={{
 								fontSize: "3rem",
@@ -207,7 +205,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 								color: "var(--text2-color)",
 							}}
 						>
-							القسم: {data?.data?.products?.category}
+							القسم: {data?.data?.content?.category}
 						</h1>
 					)
 				)}
@@ -218,13 +216,13 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 				>
 					عرض {(pageNumber - 1) * limit + 1}–
 					{pageNumber === totalPageNumber
-						? data?.data?.products?.productCount
+						? data?.data?.numberOfElements
 						: limit * pageNumber}{" "}
-					من أصل {data?.data?.products?.productCount} نتيجة
+					من أصل {data?.data?.numberOfElements} نتيجة
 				</p>
 				<section>
 					<Row className="">
-						{data?.data?.products?.products?.map((item, index) => {
+						{data?.data?.content?.map((item, index) => {
 							// console.log(item);
 							return (
 								<Col
@@ -307,7 +305,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 						className="pagination-btn"
 						onClick={() => {
 							if (
-								pageNumber < data?.data?.products?.productCount
+								pageNumber < data?.data?.numberOfElements
 							) {
 								setPageNumber(pageNumber + 1);
 								if (pageNumber + 1 > maxPageNumberLimit) {

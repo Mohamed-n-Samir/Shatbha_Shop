@@ -17,7 +17,7 @@ const Section2 = () => {
 		},
 		{
 			params: {
-				limit: 8,
+				limit: 4,
 				tags: "64dbe4bcb035c78e41f0b568",
 			},
 		}
@@ -62,7 +62,9 @@ const Section2 = () => {
 		);
 	}
 
-	if (data && data?.data?.products?.productCount === 0) {
+	console.log(data?.data?.content)
+
+	if (data && data?.data?.numberOfElements === 0) {
 		return (
 			<section className="section-1">
 				<div className="d-flex justify-content-between align-items-center">
@@ -92,9 +94,7 @@ const Section2 = () => {
 		);
 	}
 
-	console.log(data?.data?.products);
-
-	if (data && data?.data?.products?.productCount > 0) {
+	if (data && data?.data?.numberOfElements > 0) {
 		return (
 			<section className="section-1">
 				<div className="d-flex justify-content-between align-items-center">
@@ -117,7 +117,7 @@ const Section2 = () => {
 					/>
 				</div>
 				<Row className="py-5 ">
-					{data?.data?.products?.products?.map((item, index) => {
+					{data?.data?.content?.map((item, index) => {
 						return (
 							<Col
 								className="mb-3 px-2"

@@ -211,11 +211,11 @@ const AccountDetails = () => {
 					value={form.city?._id}
 					disabled={user.role === "admin"}
 				>
-					<option value="0" hidden={true}>
+					<option value="0" hidden={true} key={0}>
 						اختر المدينه (ان لم تجد المدينه الخاصه بك فلا يوجد خدمه
 						شحن لها)
 					</option>
-					{data?.data?.allCities.map((city) => {
+					{data?.data?.map((city) => {
 						return (
 							city.name !== "Admin" && (
 								<option value={city?._id} key={city._id}>

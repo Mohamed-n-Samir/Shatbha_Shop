@@ -1,16 +1,13 @@
 package com.shatbha_shop.shatbha_shop.Controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shatbha_shop.shatbha_shop.Models.User;
-import com.shatbha_shop.shatbha_shop.Services.UserService;
-import com.shatbha_shop.shatbha_shop.Success.SuccessBody;
+import com.shatbha_shop.shatbha_shop.Models.City;
+import com.shatbha_shop.shatbha_shop.Services.CityService;
 
 import jakarta.validation.Valid;
 
@@ -24,20 +21,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("api/user")
-public class UserController {
+@RequestMapping("")
+public class CityController {
 
     @Autowired
-    private UserService userService;
+    private CityService cityService;
 
-    @GetMapping("all")
-    public List<User> GetAllUsers() {
-        return userService.GetAllUsers();
+    @GetMapping("/api/getAllCities")
+    public List<City> GetAllCitys() {
+        return cityService.GetAllCitys();
     }
-    
-    @GetMapping("{id}")
-    public User GetUserByID(@PathVariable String id) {
-        return userService.GetUserByID(id);
+
+    @PostMapping("/api/addCity")
+    public String CityRegister(@RequestBody @Valid City city) {
+        return cityService.AddCity(city);
     }
     
 }

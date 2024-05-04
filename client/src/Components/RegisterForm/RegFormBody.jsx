@@ -20,7 +20,7 @@ const RegFormBody = () => {
 	const [errors, setErrors] = useState({});
 	const { data, isError, error, isSuccess } = useQueryCustom(
 		["cities"],
-		"getAllCities",
+		"/getAllCities",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -55,7 +55,7 @@ const RegFormBody = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		try {
-			mutate(["register", form]);
+			mutate(["user/register", form]);
 		} catch (err) {
 			console.log(err);
 		}
@@ -141,10 +141,10 @@ const RegFormBody = () => {
 						اختر المدينه (ان لم تجد المدينه الخاصه بك فلا يوجد خدمه
 						شحن لها)
 					</option>
-					{data?.data?.allCities?.map((city) => {
+					{data?.data?.map((city) => {
 						return (
 							city.name !== "Admin" && (
-								<option value={city._id} key={city._id}>
+								<option value={city.id} key={city.id}>
 									{city.name}
 								</option>
 							)

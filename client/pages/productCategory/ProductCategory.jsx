@@ -51,10 +51,10 @@ const productCategory = () => {
 		);
 
 	useEffect(() => {
-		if (data?.data?.products?.productCount) {
-			setItemsNubmer(data?.data?.products?.productCount);
+		if (data?.data?.numberOfElements) {
+			setItemsNubmer(data?.data?.numberOfElements);
 		}
-	}, [data?.data?.products?.productCount]);
+	}, [data?.data?.numberOfElements]);
 
 	const [pageNumberLimit, setPageNumberLimit] = useState(4);
 	const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(4);
@@ -148,7 +148,9 @@ const productCategory = () => {
 		);
 	}
 
-	if (data && data?.data?.products?.productCount === 0) {
+	console.log(data)
+
+	if (data && data?.data?.numberOfElements === 0) {
 		return (
 			<Layout
 				robots={true}
@@ -196,7 +198,7 @@ const productCategory = () => {
 		);
 	}
 
-	if (data && data?.data?.products?.productCount > 0) {
+	if (data && data?.data?.numberOfElements > 0) {
 		return (
 			<Layout
 				robots={true}

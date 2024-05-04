@@ -2,6 +2,23 @@ import { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
+const token = localStorage.getItem("jwt")
+console.log(token);
+
+if(token){
+	axios.interceptors.request.use(
+		config => {
+			config.headers.Authorization = `Bearer ${token}`
+			return config;
+		},
+		error => {
+			return Promise.reject(error);
+		}
+	)
+}
+
+
+
 const ACTIONS = {
 	LOGIN: "LOGIN",
 	LOGOUT: "LOGOUT",
@@ -23,7 +40,7 @@ export const reducer = (state, action) => {
 export const DataProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, { user: null });
 
-	const { data, isSuccess } = useQuery({
+	const { data, isSuccess,refetch } = useQuery({
 		queryKey: ["userData"],
 		queryFn: fetchUserData,
 		refetchOnWindowFocus: false,
@@ -43,7 +60,7 @@ export const DataProvider = ({ children }) => {
 	}, [data]);
 
 	return (
-		<DataContext.Provider value={{ ...state, dispatch }}>
+		<DataContext.Provider value={{ ...state, dispatch,refetch }}>
 			{children}
 		</DataContext.Provider>
 	);
@@ -51,14 +68,17 @@ export const DataProvider = ({ children }) => {
 
 export default DataContext;
 
+
+
 const fetchUserData = async () => {
 	try {
 		const res = await axios.get(
 			`${import.meta.env.VITE_REACT_BACKEND_URL}/getUserData`
 		);
+		console.log(res)
 		if (res.data && !res.data.error) {
 			console.log(res.data);
-			return res.data.user;
+			return res.data.data.user;
 		} else if (res.data.error) {
 			return "none";
 		}

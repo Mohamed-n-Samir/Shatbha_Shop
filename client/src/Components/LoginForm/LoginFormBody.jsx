@@ -19,9 +19,10 @@ const LoginFormBody = () => {
 			if (data) {
 				console.log(data);
 				if (data.data.message) {
+					localStorage.setItem('jwt',data.data.data.token)
 					dispatch({
 						type: "LOGIN",
-						payload: data.data.user,
+						payload: data.data.data.user,
 					});
 					toast.success(data.data.message, {
 						position: "top-center",

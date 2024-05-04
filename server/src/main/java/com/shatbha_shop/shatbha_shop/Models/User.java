@@ -3,27 +3,37 @@ package com.shatbha_shop.shatbha_shop.Models;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.shatbha_shop.shatbha_shop.Validations.CityValidation.CityExist;
 
 import org.bson.types.ObjectId;
 
 import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 
 import lombok.AllArgsConstructor;
+// import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+// @Builder
 @Document(collection = "users")
-public class User {
+public class User implements UserDetails{
 
     @Id
     private String id;
@@ -47,14 +57,17 @@ public class User {
     @NotBlank(message = "الرجاء ادخال كلمة المرور")
     private String password;
 
+
     private String role = "user";
 
     private boolean isBlocked = false;
 
     private List<String> cart = new ArrayList<>();
 
+    @DocumentReference(collection = "cities")
+    @CityExist
     @NotNull(message = "الرجاء اختيار المدينة")
-    private ObjectId city;
+    private City city;
 
     @NotBlank(message = "الرجاء اختيار المنطقة")
     private String area;
@@ -75,17 +88,53 @@ public class User {
     @LastModifiedDate
     private Date updatedAt;
 
-    public ObjectId getCityId() {
-        return city;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
-    public void setCityId(String cityId) {
-        this.city = new ObjectId(cityId);
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public void setCityId(ObjectId cityId) {
-        this.city = cityId;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String getPassword(){
+        return password;
+    }
+
+    // public ObjectId getCityId() {
+    //     return city;
+    // }
+
+    // public void setCityId(String cityId) {
+    //     this.city = new ObjectId(cityId);
+    // }
+
+    // public void setCityId(ObjectId cityId) {
+    //     this.city = cityId;
+    // }
 }
 
 // {

@@ -54,7 +54,7 @@ const Section4 = () => {
 		);
 	}
 
-	if (data && data?.data?.products?.productCount === 0) {
+	if (data && data?.data?.numberOfElements === 0) {
 		return (
 			<section className="section-1">
 				<div className="d-flex justify-content-between align-items-center">
@@ -76,9 +76,8 @@ const Section4 = () => {
 		);
 	}
 
-    console.log(data?.data?.products)
 
-	if (data && data?.data?.products?.productCount > 0) {
+	if (data && data?.data?.numberOfElements > 0) {
 		return (
 			<section className="section-1">
 				<div className="d-flex justify-content-between align-items-center">
@@ -93,7 +92,7 @@ const Section4 = () => {
                     }}/>
 				</div>
 				<Row className="py-5 ">
-					{data?.data?.products?.products?.map((item, index) => {
+					{data?.data?.content?.map((item, index) => {
 						return (
 							<Col
 							className="mb-3 px-2"

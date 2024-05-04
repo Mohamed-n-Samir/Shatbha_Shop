@@ -40,7 +40,7 @@ const Section1 = () => {
         );
     }
 
-    if (data && data?.length === 0) {
+    if (data && data?.data?.length === 0) {
         return (
             <section className="section-1">
                 <hr />
@@ -54,7 +54,7 @@ const Section1 = () => {
         );
     }
 
-    if (data && data?.length > 0) {
+    if (data && data?.data?.length > 0) {
         return (
             <section className="section-1">
                 <hr />
@@ -62,7 +62,7 @@ const Section1 = () => {
                     عروض شطبها شوب مبتـنـتهـــيش ...
                 </h1>
                 <Row className="py-5 ">
-                    {data.map((item, index) => {
+                    {data.data.map((item, index) => {
                         return (
                             <Col
                                 className="mb-3 px-2"

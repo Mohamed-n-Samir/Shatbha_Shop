@@ -384,7 +384,7 @@ const ProductTable = () => {
 						<div className="d-flex justify-content-between flex-wrap gap-3">
 							{row?.original?.images?.map((image) => (
 								<img
-									key={image.id}
+									key={image.imageId}
 									src={image.url}
 									alt="product"
 									className="product-image"

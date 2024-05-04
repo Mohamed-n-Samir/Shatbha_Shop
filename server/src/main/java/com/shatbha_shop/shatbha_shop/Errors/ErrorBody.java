@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ErrorBody {
     
-    private String message;
+    private String error;
     private String uri;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-mm-yyyy hh:mm:ss" )
@@ -16,9 +16,9 @@ public class ErrorBody {
         this.timestamp = new Date();
     }
 
-    public ErrorBody(String message, String uri){
+    public ErrorBody(String error, String uri){
         this();
-        this.message = message;
+        this.error = error;
         this.uri = uri;
     }
 
@@ -38,12 +38,12 @@ public class ErrorBody {
         this.timestamp = timestamp;
     }
 
-    public String getMessage() {
-        return message;
+    public String getError() {
+        return error;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setError(String error) {
+        this.error = error;
     }
 
 }
