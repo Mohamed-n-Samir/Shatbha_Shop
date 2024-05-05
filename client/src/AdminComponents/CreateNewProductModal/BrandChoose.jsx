@@ -51,7 +51,7 @@ const brandChoose = ({ handleChange }) => {
 						{data?.data?.allBrand?.map((brand) => {
 							return (
 								brand.name && (
-									<option value={brand._id} key={brand._id}>
+									<option value={brand.id} key={brand.id}>
 										{brand.name}
 									</option>
 								)

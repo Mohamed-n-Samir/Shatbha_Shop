@@ -81,7 +81,7 @@ const Section1 = () => {
                                     oldPrice={item.oldPrice}
                                     title={item.title}
                                     slug={item.slug}
-                                    id={item._id}
+                                    id={item.id}
                                 />
                             </Col>
                         );

@@ -55,7 +55,7 @@ const AdminTable = () => {
 		(row) => {
 			if (
 				!confirm(
-					`Are you sure you want to Suspend ${row.getValue("_id")}`
+					`Are you sure you want to Suspend ${row.getValue("id")}`
 				)
 			) {
 				return;
@@ -71,7 +71,7 @@ const AdminTable = () => {
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column
@@ -202,7 +202,7 @@ const AdminTable = () => {
 						updatedAt: false,
 						role: false,
 						wishlist: false,
-						_id: false,
+						id: false,
 					},
 				}}
 				muiToolbarAlertBannerProps={

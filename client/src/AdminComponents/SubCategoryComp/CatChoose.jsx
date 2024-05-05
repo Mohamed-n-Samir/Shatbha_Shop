@@ -52,7 +52,7 @@ const CatChoose = ({ handleChange }) => {
 						{data?.data?.map((category) => {
 							return (
 								category.title && (
-									<option value={category._id} key={category._id}>
+									<option value={category.id} key={category.id}>
 										{category.title}
 									</option>
 								)

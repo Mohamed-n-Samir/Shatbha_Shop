@@ -66,7 +66,7 @@ const OrdersTable = () => {
 					});
 				} else {
 					mutate([
-						`updateOrder/${cell.row.original._id}`,
+						`updateOrder/${cell.row.original.id}`,
 						{ destinationAddress: value },
 						"patch",
 					]);
@@ -75,7 +75,7 @@ const OrdersTable = () => {
 				break;
 			case "notes":
 				mutate([
-					`updateOrder/${cell.row.original._id}`,
+					`updateOrder/${cell.row.original.id}`,
 					{ notes: value },
 					"patch",
 				]);
@@ -88,7 +88,7 @@ const OrdersTable = () => {
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column
@@ -96,7 +96,7 @@ const OrdersTable = () => {
 				size: 150,
 			},
 			{
-				accessorFn: (row) => `${row?._id}`,
+				accessorFn: (row) => `${row?.id}`,
 				header: "المنتجات",
 				id: "products",
 				size: 120,
@@ -150,7 +150,7 @@ const OrdersTable = () => {
 							<Link
 								to={`/dashboard/users`}
 								state={{
-									id: cell.row.original.orderby._id,
+									id: cell.row.original.orderby.id,
 								}}
 							>
 								زياره المستخدم
@@ -256,7 +256,7 @@ const OrdersTable = () => {
 					// 	if ((event.target.name = "orderStatus")) {
 					//         console.log(event.target.value)
 					//         mutate([
-					//             `updateOrder/${cell.row.original._id}`,
+					//             `updateOrder/${cell.row.original.id}`,
 					//             { orderStatus: event.target.value },
 					//             "patch",
 					//         ]);
@@ -300,7 +300,7 @@ const OrdersTable = () => {
 						isBlocked: false,
 						createdAt: false,
 						updatedAt: false,
-						_id: false,
+						id: false,
 						paymentIntentID: false,
 						paymentIntentMethod: false,
 					},

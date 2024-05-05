@@ -7,6 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.shatbha_shop.shatbha_shop.Exceptions.NotFoundException;
+import com.shatbha_shop.shatbha_shop.Exceptions.WrongTokenException;
 import com.shatbha_shop.shatbha_shop.Models.User;
 import com.shatbha_shop.shatbha_shop.Repositories.TokenRepository;
 
@@ -68,7 +70,7 @@ public class JwtService {
                 .builder()
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 24*60*60*1000 ))
+                .expiration(new Date(System.currentTimeMillis() + 120*60*60*1000 ))
                 .signWith(getSigninKey())
                 .compact();
 
@@ -79,5 +81,7 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+    
 
 }

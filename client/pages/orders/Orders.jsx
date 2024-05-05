@@ -32,7 +32,7 @@ const Orders = () => {
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column
@@ -158,9 +158,9 @@ const Orders = () => {
 		);
 	}
 
-	console.log(data?.data?.userOrders?.length);
+	console.log(data?.data?.length);
 
-	if (data && data?.data?.userOrders?.length === 0) {
+	if (data && data?.data?.length === 0) {
 		return (
 			<Layout
 				robots={false}
@@ -199,7 +199,7 @@ const Orders = () => {
 		);
 	}
 
-	if (data && data?.data?.userOrders?.length > 0) {
+	if (data && data?.data?.length > 0) {
 		return (
 			<Layout
 				robots={false}
@@ -342,11 +342,11 @@ const Orders = () => {
 							},
 						}}
 						columns={columns}
-						data={data?.data?.userOrders ?? []} //data is undefined on first render
+						data={data?.data ?? []} //data is undefined on first render
 						initialState={{
 							columnVisibility: {
 								// createdAt: false,
-								_id: false,
+								id: false,
 							},
 							expanded: {
 								0: true,

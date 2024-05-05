@@ -10,12 +10,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shatbha_shop.shatbha_shop.Models.Product;
 import com.shatbha_shop.shatbha_shop.Services.ProductService;
 import com.shatbha_shop.shatbha_shop.Success.SuccessBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 public class ProductController {
@@ -32,6 +36,11 @@ public class ProductController {
     @GetMapping("/api/getOffers")
     public List<Product> getOffers() {
         return productService.getOffers();
+    }
+
+    @GetMapping("/api/getaProduct/{slug}")
+    public Product getaProduct(@PathVariable String slug) {
+        return productService.getaProduct(slug);
     }
     
 
@@ -53,4 +62,5 @@ public class ProductController {
         return productsPage;
 
     }
+    
 }

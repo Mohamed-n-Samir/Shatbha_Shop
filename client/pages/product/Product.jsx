@@ -65,7 +65,7 @@ const Product = () => {
 
 	if (data?.data) {
 		const {
-			_id: id,
+			id: id,
 			title,
 			oldPrice,
 			newPrice,
@@ -322,7 +322,7 @@ const Product = () => {
 									<p className="fs-4 m-0">
 										التصنيف:{" "}
 										<Link
-											to={`/products?cat=${category._id}`}
+											to={`/products?cat=${category.id}`}
 										>
 											{category.title}
 										</Link>

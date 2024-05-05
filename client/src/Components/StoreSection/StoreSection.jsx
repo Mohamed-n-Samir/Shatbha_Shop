@@ -8,7 +8,7 @@ import "./store-section.css";
 
 const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 	const [searchParams] = useSearchParams();
-	const [pageNumber, setPageNumber] = useState(1);
+	const [pageNumber, setPageNumber] = useState(0);
 	const limit = 9;
 
 	const { data, isError, isFetching, isLoading, refetch, isPreviousData } =
@@ -244,7 +244,7 @@ const StoreSection = ({ gte, lte, sort, setItemsNubmer }) => {
 										oldPrice={item.oldPrice}
 										title={item.title}
 										slug={item.slug}
-										id={item._id}
+										id={item.id}
 										quantity={item.quantity}
 									/>
 								</Col>

@@ -32,7 +32,7 @@ const Categories = () => {
 	}
 
 
-	if (data?.data?.allSubCategory?.length === 0) {
+	if (data?.data?.length === 0) {
 		return (
 			<div className="is-loading">
 				<h2 className="text-center">!!! لا يوجد أقسام</h2>
@@ -40,13 +40,13 @@ const Categories = () => {
 		);
 	}
 
-	if (data?.data?.allSubCategory?.length > 0) {
+	if (data?.data?.length > 0) {
 		return (
-			<ul className="main-ul">
-				{data?.data?.allSubCategory?.map((category) => (
-					<li key={category._id} className="">
+			<ul key={0} className="main-ul">
+				{data?.data?.map((category) => (
+					<li key={category.id} className="">
 						<Link
-							to={`/products?cat=${category.category?._id}`}
+							to={`/products?cat=${category.category?.id}`}
 							onClick={() => {
 								window.scrollTo(0, 0);
 							}}

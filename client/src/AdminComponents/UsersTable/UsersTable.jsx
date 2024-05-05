@@ -68,7 +68,7 @@ const UsersTable = () => {
 		if (location.state?.id && data?.data?.allUsers) {
 			console.log(location.state?.id);
 			const filteredData = data?.data?.allUsers?.filter((row) => {
-				return row._id === location?.state?.id;
+				return row.id === location?.state?.id;
 			});
 			console.log(filteredData);
 			setTableData(filteredData);
@@ -114,7 +114,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							firstname: value.split(" ")[0],
 							lastname: value.split(" ")[1],
@@ -152,7 +152,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							email: value.toLowerCase(),
 						},
@@ -185,7 +185,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							mobile: value,
 						},
@@ -208,7 +208,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							city: value,
 						},
@@ -231,7 +231,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							area: value,
 						},
@@ -254,7 +254,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							buildingAndApartment: value,
 						},
@@ -277,7 +277,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							gender: value,
 						},
@@ -300,7 +300,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original._id}`,
+						`updateUser-admin/${cell.row.original.id}`,
 						{
 							isBlocked: value,
 						},
@@ -319,7 +319,7 @@ const UsersTable = () => {
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column
@@ -444,7 +444,7 @@ const UsersTable = () => {
 									variant="danger fs-5 py-2 px-3"
 									onClick={() => {
 										mutate([
-											`block-user/${cell.row.original._id}`,
+											`block-user/${cell.row.original.id}`,
 											null,
 											"put",
 										]);
@@ -457,7 +457,7 @@ const UsersTable = () => {
 									variant="primary fs-5 py-2 px-3"
 									onClick={() => {
 										mutate([
-											`unblock-user/${cell.row.original._id}`,
+											`unblock-user/${cell.row.original.id}`,
 											null,
 											"put",
 										]);
@@ -527,7 +527,7 @@ const UsersTable = () => {
 						updatedAt: false,
 						role: false,
 						wishlist: false,
-						_id: false,
+						id: false,
 					},
 				}}
 				muiToolbarAlertBannerProps={

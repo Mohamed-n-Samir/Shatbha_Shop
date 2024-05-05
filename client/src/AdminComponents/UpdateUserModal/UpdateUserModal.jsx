@@ -12,7 +12,7 @@ import useQueryCustom from "../../hooks/useQueryCustom";
 const UpdateUserModal = ({ open, onClose, row }) => {
 	console.log(row);
 	const [form, setForm] = useState({
-		_id: "",
+		id: "",
 		city: "",
 		gender: "",
 	});
@@ -52,14 +52,14 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 
 	useEffect(() => {
 		setForm({
-			city: row?.city?._id,
+			city: row?.city?.id,
 			gender: row?.gender,
-			_id: row?._id,
+			id: row?.id,
 		});
 		setInitState({
-			city: row?.city?._id,
+			city: row?.city?.id,
 			gender: row?.gender,
-			_id: row?._id,
+			id: row?.id,
 		});
 	}, [row]);
 
@@ -75,9 +75,9 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 			<CloseIcon
 				onClick={() => {
 					setForm({
-						city: row?.city?._id,
+						city: row?.city?.id,
 						gender: row?.gender,
-						_id: row?._id,
+						id: row?.id,
 					});
 					onClose();
 				}}
@@ -115,7 +115,7 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 							{data?.data?.allCities?.map((city) => {
 								return (
 									city.name !== "Admin" && (
-										<option value={city._id} key={city._id}>
+										<option value={city.id} key={city.id}>
 											{city.name}
 										</option>
 									)
@@ -128,7 +128,7 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 									variant="dark py-2 p-3 fs-4"
 									onClick={() => {
 										mutate([
-											`updateUser-admin/${form._id}`,
+											`updateUser-admin/${form.id}`,
 											{
 												city: form?.city,
 											},
@@ -186,7 +186,7 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 									variant="dark py-2 p-3 fs-4"
 									onClick={() => {
 										mutate([
-											`updateUser-admin/${form._id}`,
+											`updateUser-admin/${form.id}`,
 											{
 												gender: form?.gender,
 											},

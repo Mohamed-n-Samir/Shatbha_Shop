@@ -58,7 +58,7 @@ const BrandsTable = () => {
 		if (location.state?.id && data?.data?.allBrand) {
 			console.log(location.state?.id);
 			const filteredData = data?.data?.allBrand?.filter((row) => {
-				return row._id === location?.state?.id;
+				return row.id === location?.state?.id;
 			});
 			console.log(filteredData);
 			setTableData(filteredData);
@@ -84,7 +84,7 @@ const BrandsTable = () => {
 					});
 				} else {
 					mutate([
-						`updateBrand/${cell.row.original._id}`,
+						`updateBrand/${cell.row.original.id}`,
 						{ name: value },
 						"patch",
 					]);
@@ -105,7 +105,7 @@ const BrandsTable = () => {
 					});
 				} else {
 					mutate([
-						`updateBrand/${cell.row.original._id}`,
+						`updateBrand/${cell.row.original.id}`,
 						{ description: value },
 						"patch",
 					]);
@@ -113,7 +113,7 @@ const BrandsTable = () => {
 				break;
 			case "url":
 				mutate([
-					`updateBrand/${cell.row.original._id}`,
+					`updateBrand/${cell.row.original.id}`,
 					{ url: value },
 					"patch",
 				]);
@@ -133,7 +133,7 @@ const BrandsTable = () => {
 		//send api delete request here, then refetch or update local table data for re-render
 		mutate([
 			"deleteBrand",
-			{ data: { id: row.getValue("_id") } },
+			{ data: { id: row.getValue("id") } },
 			"delete",
 		]);
 	}, []);
@@ -141,7 +141,7 @@ const BrandsTable = () => {
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column

@@ -78,7 +78,7 @@ const ProductTable = () => {
 		(row) => {
 			if (
 				!confirm(
-					`Are you sure you want to Suspend ${row.getValue("_id")}`
+					`Are you sure you want to Suspend ${row.getValue("id")}`
 				)
 			) {
 				return;
@@ -86,7 +86,7 @@ const ProductTable = () => {
 			//send api delete request here, then refetch or update local table data for re-render
 			mutate([
 				"deleteProduct",
-				{ data: { id: row.getValue("_id") } },
+				{ data: { id: row.getValue("id") } },
 				"delete",
 			]);
 		},
@@ -109,7 +109,7 @@ const ProductTable = () => {
 					});
 				}
 				mutate([
-					`updateProduct/${cell.row.original._id}`,
+					`updateProduct/${cell.row.original.id}`,
 					{
 						title: value,
 					},
@@ -141,7 +141,7 @@ const ProductTable = () => {
 					});
 				}
 				mutate([
-					`updateProduct/${cell.row.original._id}`,
+					`updateProduct/${cell.row.original.id}`,
 					{
 						description: value,
 					},
@@ -190,7 +190,7 @@ const ProductTable = () => {
 					);
 				}
 				mutate([
-					`updateProduct/${cell.row.original._id}`,
+					`updateProduct/${cell.row.original.id}`,
 					{
 						oldPrice: value,
 					},
@@ -250,7 +250,7 @@ const ProductTable = () => {
 					);
 				} else {
 					mutate([
-						`updateProduct/${cell.row.original._id}`,
+						`updateProduct/${cell.row.original.id}`,
 						{
 							newPrice: value,
 						},
@@ -283,7 +283,7 @@ const ProductTable = () => {
 					});
 				}
 				mutate([
-					`updateProduct/${cell.row.original._id}`,
+					`updateProduct/${cell.row.original.id}`,
 					{
 						quantity: value,
 					},
@@ -309,7 +309,7 @@ const ProductTable = () => {
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column
@@ -336,7 +336,7 @@ const ProductTable = () => {
 					return (
 						<Link
 							to={"/dashboard/categories"}
-							state={{ id: row?.original?.category?._id }}
+							state={{ id: row?.original?.category?.id }}
 							className="d-flex justify-content-center"
 						>
 							{row?.original?.category?.title}
@@ -353,7 +353,7 @@ const ProductTable = () => {
 					return (
 						<Link
 							to={"/dashboard/brands"}
-							state={{ id: row?.original?.brand?._id }}
+							state={{ id: row?.original?.brand?.id }}
 							className="d-flex justify-content-center"
 						>
 							{row?.original?.brand?.name}
@@ -518,7 +518,7 @@ const ProductTable = () => {
 						createdAt: false,
 						updatedAt: false,
 						tags: false,
-						_id: false,
+						id: false,
 					},
 				}}
 				muiToolbarAlertBannerProps={

@@ -135,7 +135,7 @@ const Section2 = () => {
 									oldPrice={item.oldPrice}
 									title={item.title}
 									slug={item.slug}
-									id={item._id}
+									id={item.id}
 									quantity={item.quantity}
 								/>
 							</Col>

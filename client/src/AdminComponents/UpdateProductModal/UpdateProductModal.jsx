@@ -56,16 +56,16 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 	useEffect(() => {
 		setForm({
 			description: row?.description,
-			category: row?.category?._id,
-			brand: row?.brand?._id,
+			category: row?.category?.id,
+			brand: row?.brand?.id,
 			images: row?.images,
 			tags: row?.tags,
-			_id: row?._id,
+			id: row?.id,
 		});
 		setInitState({
 			description: row?.description,
-			category: row?.category?._id,
-			brand: row?.brand?._id,
+			category: row?.category?.id,
+			brand: row?.brand?.id,
 			images: row?.images,
 			tags: row?.tags,
 		});
@@ -155,7 +155,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 										);
 
 									mutate([
-										`updateProduct/${form._id}`,
+										`updateProduct/${form.id}`,
 										{
 											description:
 												form?.description?.trim(),
@@ -194,7 +194,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 								variant="dark py-2 p-3 fs-4"
 								onClick={() => {
 									mutate([
-										`updateProduct/${form._id}`,
+										`updateProduct/${form.id}`,
 										{
 											brand: form?.brand,
 										},
@@ -232,7 +232,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 								variant="dark py-2 p-3 fs-4"
 								onClick={() => {
 									mutate([
-										`updateProduct/${form._id}`,
+										`updateProduct/${form.id}`,
 										{
 											category: form?.category,
 										},
@@ -284,7 +284,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 												}
 											);
 										mutate([
-											`updateProduct/${form._id}`,
+											`updateProduct/${form.id}`,
 											{
 												tags: form?.tags,
 											},
@@ -407,7 +407,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 													);
 
 												mutate([
-													`updateProduct/${form._id}`,
+													`updateProduct/${form.id}`,
 													{
 														images: form?.images,
 													},

@@ -19,30 +19,38 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.shatbha_shop.shatbha_shop.Errors.ErrorBody;
 import com.shatbha_shop.shatbha_shop.Errors.ValidationError;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ErrorBody> handleCustomException(final BaseException ex,WebRequest request) {
+    public ResponseEntity<ErrorBody> handleCustomException(final BaseException ex, WebRequest request) {
 
-        ErrorBody body = new ErrorBody(ex.getMessage(),request.getDescription(false));
+        ErrorBody body = new ErrorBody(ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<ErrorBody>(body, ex.getStatusCode());
     }
 
     @Override
     @Nullable
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+            HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ValidationError validationError = new ValidationError();
         validationError.setUri(request.getDescription(false));
 
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
 
-        for(FieldError f: fieldErrors) {
+        for (FieldError f : fieldErrors) {
             validationError.addError(f.getDefaultMessage());
         }
 
-
         return new ResponseEntity<>(validationError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<String> handleExpiredJwtException(ExpiredJwtException ex) {
+        String errorMessage = "JWT token expired. Please authenticate again.";
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
     }
 }

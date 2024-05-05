@@ -103,4 +103,8 @@ public class Product {
         private String infoType;
         private String colors;
     }
+
+    public Product(String id){
+        this.id = id;
+    }
 }

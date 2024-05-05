@@ -19,7 +19,7 @@ const AccountDetails = () => {
 		newPassword: "",
 		mobile: user?.mobile,
 		buildingAndApartment: user?.buildingAndApartment,
-		city: user?.city?._id,
+		city: user?.city?.id,
 		area: user?.area,
 	});
 	const queryClient = useQueryClient();
@@ -208,7 +208,7 @@ const AccountDetails = () => {
 					className="p-3 uneditable-input"
 					onChange={handleChange}
 					name="city"
-					value={form.city?._id}
+					value={form.city?.id}
 					disabled={user.role === "admin"}
 				>
 					<option value="0" hidden={true} key={0}>
@@ -218,14 +218,14 @@ const AccountDetails = () => {
 					{data?.data?.map((city) => {
 						return (
 							city.name !== "Admin" && (
-								<option value={city?._id} key={city._id}>
+								<option value={city?.id} key={city.id}>
 									{city.name}
 								</option>
 							)
 						);
 					})}
 				</Form.Select>
-				{user.role !== "admin" && user?.city?._id !== form.city && (
+				{user.role !== "admin" && user?.city?.id !== form.city && (
 					<div className="mt-4">
 						<Button
 							variant="dark py-2 p-3 fs-4"

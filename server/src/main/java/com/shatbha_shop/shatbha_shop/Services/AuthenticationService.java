@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.shatbha_shop.shatbha_shop.Exceptions.ConflictException;
+import com.shatbha_shop.shatbha_shop.Exceptions.NotFoundException;
 import com.shatbha_shop.shatbha_shop.Exceptions.WrongTokenException;
 import com.shatbha_shop.shatbha_shop.Models.AuthenticationResponse;
 import com.shatbha_shop.shatbha_shop.Models.Token;
@@ -110,9 +111,9 @@ public class AuthenticationService {
 
         String email = jwtService.extractUsername(authHeader.substring(7));
 
-        User user = repository.findByEmail(email).orElseThrow();
+        User user = repository.findByEmail(email).orElseThrow(()->new NotFoundException("User Not Found"));
 
-        Map<String,String> userRes = new HashMap<>();
+        Map<String,Object> userRes = new HashMap<>();
 
         userRes.put("id", user.getId());
         userRes.put("firstname", user.getFirstname());
@@ -120,7 +121,7 @@ public class AuthenticationService {
         userRes.put("email", user.getEmail());
         userRes.put("mobile", user.getMobile());
         userRes.put("role", user.getRole());
-        userRes.put("city", user.getCity().getId());
+        userRes.put("city", user.getCity());
         userRes.put("area", user.getArea());
         userRes.put("buildingAndApartment", user.getBuildingAndApartment());
         userRes.put("gender", user.getGender());

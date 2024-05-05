@@ -20,7 +20,7 @@ const productCategory = () => {
 	const [comValue, setcomValue] = useState([MIN, MAX]);
 	const [sort, setSort] = useState("-createdAt");
 	const [itemsNubmer, setItemsNubmer] = useState(0);
-	const [pageNumber, setPageNumber] = useState(1);
+	const [pageNumber, setPageNumber] = useState(0);
 	const limit = 9;
 	const gte = comValue[0];
 	const lte = comValue[1];
@@ -40,10 +40,8 @@ const productCategory = () => {
 				params: {
 					page: pageNumber,
 					limit: limit,
-					newPrice: {
-						gte: gte,
-						lte: lte,
-					},
+					newPricegte: gte,
+					newPricelte: lte,
 					sort: sort,
 					tags: categoryID,
 				},
@@ -114,7 +112,7 @@ const productCategory = () => {
 	}
 
 	const totalPageNumber = Math.ceil(
-		data && data?.data?.products?.productCount / limit
+		data && data?.data?.totalPages
 	);
 	const pagesArray = new Array(totalPageNumber).fill().map((_, i) => i + 1);
 	let pageIncrementBtn = null;
@@ -156,16 +154,16 @@ const productCategory = () => {
 				robots={true}
 				canonicalUrl={`/product-category/${categoryID}`}
 				ogUrl={`/product-category/${categoryID}`}
-				ogTitle={`${data?.data?.products?.category} قسم - Shatbha Shop | شطبها شوب`}
-				ogDescription={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.products?.category} - Shatbha Shop | شطبها شوب`}
+				ogTitle={`${data?.data?.content[0]?.category?.title} قسم - Shatbha Shop | شطبها شوب`}
+				ogDescription={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.content[0]?.category?.title} - Shatbha Shop | شطبها شوب`}
 				title={`${data?.data?.products?.category} قسم - Shatbha Shop | شطبها شوب`}
-				description={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.products?.category} - Shatbha Shop | شطبها شوب`}
+				description={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.content[0]?.category?.title} - Shatbha Shop | شطبها شوب`}
 				ogImage={"smallbitmap.svg"}
 				msapplicationTileImage={"smallbitmap.svg"}
 				author={"Shatbha Shop | شطبها شوب"}
 				keywords={
 					"القسم, القسم الفرعي, " +
-					data?.data?.products?.category +
+					data?.data?.content[0]?.category?.title +
 					", متجر مستلزمات السباكة و الأدوات الصحية و أنظمة المياه, خلاطات المياه, أحواض المطبخ, ديكور المطبخ, الحمام, أطقم المرحاض, حوض الحمام"
 				}
 			>
@@ -204,16 +202,16 @@ const productCategory = () => {
 				robots={true}
 				canonicalUrl={`/product-category/${categoryID}`}
 				ogUrl={`/product-category/${categoryID}`}
-				ogTitle={`${data?.data?.products?.category} قسم - Shatbha Shop | شطبها شوب`}
-				ogDescription={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.products?.category} - Shatbha Shop | شطبها شوب`}
-				title={`${data?.data?.products?.category} قسم - Shatbha Shop | شطبها شوب`}
-				description={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.products?.category} - Shatbha Shop | شطبها شوب`}
+				ogTitle={`${data?.data?.content[0]?.category?.title} قسم - Shatbha Shop | شطبها شوب`}
+				ogDescription={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.content[0]?.category?.title} - Shatbha Shop | شطبها شوب`}
+				title={`${data?.data?.content[0]?.category?.title} قسم - Shatbha Shop | شطبها شوب`}
+				description={`تصفح المنتجات واختر ما تريد من قسم ال ${data?.data?.content[0]?.category?.title} - Shatbha Shop | شطبها شوب`}
 				ogImage={"smallbitmap.svg"}
 				msapplicationTileImage={"smallbitmap.svg"}
 				author={"Shatbha Shop | شطبها شوب"}
 				keywords={
 					"القسم, القسم الفرعي, " +
-					data?.data?.products?.category +
+					data?.data?.content[0]?.category?.title +
 					", متجر مستلزمات السباكة و الأدوات الصحية و أنظمة المياه, خلاطات المياه, أحواض المطبخ, ديكور المطبخ, الحمام, أطقم المرحاض, حوض الحمام"
 				}
 			>
@@ -228,14 +226,14 @@ const productCategory = () => {
 						itemsNubmer={itemsNubmer}
 					/>
 					<section className="d-flex flex-column gap-4 store-section">
-						{data?.data?.products?.category && (
+						{data?.data?.content[0]?.category?.title && (
 							<h1
 								style={{
 									fontSize: "4rem",
 									fontWeight: "700",
 								}}
 							>
-								{data?.data?.products?.category}
+								{data?.data?.content[0]?.category?.title}
 							</h1>
 						)}
 
@@ -246,13 +244,13 @@ const productCategory = () => {
 						>
 							عرض {(pageNumber - 1) * limit + 1}–
 							{pageNumber === totalPageNumber
-								? data?.data?.products?.productCount
+								? data?.data?.numberOfElements
 								: limit * pageNumber}{" "}
-							من أصل {data?.data?.products?.productCount} نتيجة
+							من أصل {data?.data?.numberOfElements} نتيجة
 						</p>
 						<section>
 							<Row className="">
-								{data?.data?.products?.products?.map(
+								{data?.data?.content?.map(
 									(item, index) => {
 										return (
 											<Col
@@ -276,7 +274,7 @@ const productCategory = () => {
 													oldPrice={item.oldPrice}
 													title={item.title}
 													slug={item.slug}
-													id={item._id}
+													id={item.id}
 													quantity={item.quantity}
 												/>
 											</Col>
@@ -347,7 +345,7 @@ const productCategory = () => {
 								onClick={() => {
 									if (
 										pageNumber <
-										data?.data?.products?.productCount
+										data?.data?.numberOfElements
 									) {
 										setPageNumber(pageNumber + 1);
 										if (

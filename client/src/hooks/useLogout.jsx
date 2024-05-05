@@ -18,13 +18,11 @@ export const useLogout = () => {
 				.then((res) => {
                     console.log(res)
 					if (
-						res.data &&
-						res.data.message === "تم تسجيل الخروج بنجاح"
+						res.data
 					) {
-						console.log(res);
 						dispatch({ type: "LOGOUT" });
 						queryClient.clear();
-                        toast.success(res.data.message, {
+                        toast.success("تم تسجيل الخروج بنجاح", {
                             position: "top-center",
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -34,6 +32,7 @@ export const useLogout = () => {
                             progress: undefined,
                             theme: "dark",
                         });
+						localStorage.removeItem("jwt")
 						navigate("/" , { replace: true });
 					}
 				});

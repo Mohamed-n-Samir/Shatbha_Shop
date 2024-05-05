@@ -77,7 +77,7 @@ const ShippingCitiesTable = () => {
 							}
 						);
 					}
-					if (cell.row.original._id === "64d6c066ba4241ab93a23f48") {
+					if (cell.row.original.id === "64d6c066ba4241ab93a23f48") {
 						return toast.error("لا يمكن تعديل اسم هذه المدينه", {
 							position: "top-center",
 							autoClose: 5000,
@@ -90,7 +90,7 @@ const ShippingCitiesTable = () => {
 						});
 					}
 					mutate([
-						`updateCity/${cell.row.original._id}`,
+						`updateCity/${cell.row.original.id}`,
 						{ name: value },
 						"patch",
 					]);
@@ -122,7 +122,7 @@ const ShippingCitiesTable = () => {
 							theme: "dark",
 						});
 					}
-					if (cell.row.original._id === "64d6c066ba4241ab93a23f48") {
+					if (cell.row.original.id === "64d6c066ba4241ab93a23f48") {
 						return toast.error("لا يمكن تعديل رسوم هذه المدينه", {
 							position: "top-center",
 							autoClose: 5000,
@@ -135,7 +135,7 @@ const ShippingCitiesTable = () => {
 						});
 					}
 					mutate([
-						`updateCity/${cell.row.original._id}`,
+						`updateCity/${cell.row.original.id}`,
 						{ shippingCharge: value },
 						"patch",
 					]);
@@ -153,7 +153,7 @@ const ShippingCitiesTable = () => {
 			return;
 		}
 		//send api delete request here, then refetch or update local table data for re-render
-		if (row.getValue("_id") === "64d6c066ba4241ab93a23f48") {
+		if (row.getValue("id") === "64d6c066ba4241ab93a23f48") {
 			return toast.error("لا يمكن حذف هذه المدينه", {
 				position: "top-center",
 				autoClose: 5000,
@@ -165,13 +165,13 @@ const ShippingCitiesTable = () => {
 				theme: "dark",
 			});
 		}
-		mutate(["deleteCity", { data: { id: row.getValue("_id") } }, "delete"]);
+		mutate(["deleteCity", { data: { id: row.getValue("id") } }, "delete"]);
 	}, []);
 
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column

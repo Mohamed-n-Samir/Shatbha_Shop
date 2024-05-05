@@ -11,7 +11,7 @@ import { Delete } from "@mui/icons-material";
 const UpdateOrderStatus = ({ open, onClose, row }) => {
 	console.log(row);
 	const [form, setForm] = useState({
-		_id: "",
+		id: "",
 		orderStatus: "",
 	});
 	const [initState, setInitState] = useState({});
@@ -39,11 +39,11 @@ const UpdateOrderStatus = ({ open, onClose, row }) => {
 
 	useEffect(() => {
 		setForm({
-			_id: row?._id,
+			id: row?.id,
 			orderStatus: row?.orderStatus,
 		});
 		setInitState({
-			_id: row?._id,
+			id: row?.id,
 			orderStatus: row?.orderStatus,
 		});
 	}, [row]);
@@ -60,9 +60,9 @@ const UpdateOrderStatus = ({ open, onClose, row }) => {
 			<CloseIcon
 				onClick={() => {
 					setForm({
-						city: row?.city?._id,
+						city: row?.city?.id,
 						gender: row?.gender,
-						_id: row?._id,
+						id: row?.id,
 					});
 					onClose();
 				}}
@@ -107,7 +107,7 @@ const UpdateOrderStatus = ({ open, onClose, row }) => {
 									variant="dark py-2 p-3 fs-4"
 									onClick={() => {
 										mutate([
-											`updateOrder/${form._id}`,
+											`updateOrder/${form.id}`,
 											{
 												orderStatus: form?.orderStatus,
 											},

@@ -17,7 +17,7 @@ const SubCatLoop = ({ categoryID }) => {
 		}
 	);
 
-	console.log(data?.data?.subCategory?._id);
+	console.log(data?.data?.subCategory?.id);
 
 	const { mutate, isLoading: mutateLoading } = useMutationCustom({
 		onSuccess: (data) => {
@@ -197,7 +197,7 @@ const SubCatLoop = ({ categoryID }) => {
 								);
 							} else {
 								mutate([
-									`updateSubCategory/${data?.data?.subCategory?._id}`,
+									`updateSubCategory/${data?.data?.subCategory?.id}`,
 									{ subCategory: arrCheck },
 									"patch",
 								]);

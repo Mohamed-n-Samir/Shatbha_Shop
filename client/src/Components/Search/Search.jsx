@@ -98,13 +98,13 @@ const Search = () => {
 					</div>
 				) : (
 					<>
-						{data?.data?.products?.products?.length > 0 &&
+						{data?.data?.numberOfElements > 0 &&
 						!blured ? (
 							<div className="search-result">
-								{data?.data?.products?.products?.map((item) => (
+								{data?.data?.content?.map((item) => (
 									<div
 										className="search-result-item d-flex align-items-center justify-content-between gap-3"
-										key={item._id}
+										key={item.id}
 										onClick={() => {
 											navigate(`/products/${item.slug}`);
 										}}
@@ -148,7 +148,7 @@ const Search = () => {
 										}}
 									>
 										عرض المزيد... (
-										{data?.data?.products?.productCount})
+										{data?.data?.numberOfElements})
 									</button>
 								</div>
 							</div>

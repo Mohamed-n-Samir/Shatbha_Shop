@@ -36,7 +36,7 @@ const CategoryTable = () => {
 		if (location.state?.id && data?.data) {
 			console.log(location.state?.id);
 			const filteredData = data?.data?.filter((row) => {
-				return row._id === location?.state?.id;
+				return row.id === location?.state?.id;
 			});
 			console.log(filteredData);
 			setTableData(filteredData);
@@ -81,7 +81,7 @@ const CategoryTable = () => {
 		}
 
 		mutate([
-			`updateCategory/${cell.row.original._id}`,
+			`updateCategory/${cell.row.original.id}`,
 			{ title: value.trim() },
 			"patch",
 		]);
@@ -96,7 +96,7 @@ const CategoryTable = () => {
 		//send api delete request here, then refetch or update local table data for re-render
 		mutate([
 			"deleteCategory",
-			{ data: { id: row.getValue("_id") } },
+			{ data: { id: row.getValue("id") } },
 			"delete",
 		]);
 	}, []);
@@ -104,7 +104,7 @@ const CategoryTable = () => {
 	const columns = useMemo(() => {
 		return [
 			{
-				accessorKey: "_id",
+				accessorKey: "id",
 				header: "ID",
 				enableColumnOrdering: false,
 				enableEditing: false, //disable editing on this column
