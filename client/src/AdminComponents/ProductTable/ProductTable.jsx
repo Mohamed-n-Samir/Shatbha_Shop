@@ -26,7 +26,7 @@ const ProductTable = () => {
 	const queryClient = useQueryClient();
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["products-table-data"],
-		"allProduct",
+		"dashboard/allProduct",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -109,7 +109,7 @@ const ProductTable = () => {
 					});
 				}
 				mutate([
-					`updateProduct/${cell.row.original.id}`,
+					`dashboard/updateProduct/${cell.row.original.id}`,
 					{
 						title: value,
 					},
@@ -141,7 +141,7 @@ const ProductTable = () => {
 					});
 				}
 				mutate([
-					`updateProduct/${cell.row.original.id}`,
+					`dashboard/updateProduct/${cell.row.original.id}`,
 					{
 						description: value,
 					},
@@ -190,7 +190,7 @@ const ProductTable = () => {
 					);
 				}
 				mutate([
-					`updateProduct/${cell.row.original.id}`,
+					`dashboard/updateProduct/${cell.row.original.id}`,
 					{
 						oldPrice: value,
 					},
@@ -250,7 +250,7 @@ const ProductTable = () => {
 					);
 				} else {
 					mutate([
-						`updateProduct/${cell.row.original.id}`,
+						`dashboard/updateProduct/${cell.row.original.id}`,
 						{
 							newPrice: value,
 						},
@@ -283,7 +283,7 @@ const ProductTable = () => {
 					});
 				}
 				mutate([
-					`updateProduct/${cell.row.original.id}`,
+					`dashboard/updateProduct/${cell.row.original.id}`,
 					{
 						quantity: value,
 					},

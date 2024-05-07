@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const SubCatLoop = ({ categoryID }) => {
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["subCat-table-data"],
-		"getCreateSubCategory/" + categoryID,
+		"dashboard/getCreateSubCategory/" + categoryID,
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -17,7 +17,7 @@ const SubCatLoop = ({ categoryID }) => {
 		}
 	);
 
-	console.log(data?.data?.subCategory?.id);
+	console.log(data?.data?.id);
 
 	const { mutate, isLoading: mutateLoading } = useMutationCustom({
 		onSuccess: (data) => {
@@ -41,8 +41,8 @@ const SubCatLoop = ({ categoryID }) => {
 	const [subCat, setSubCat] = useState([]);
 
 	useEffect(() => {
-		if (data?.data?.subCategory?.subCategory) {
-			setSubCat(data?.data?.subCategory?.subCategory);
+		if (data?.data?.subCategory) {
+			setSubCat(data?.data?.subCategory);
 		}
 	}, [data]);
 
@@ -197,7 +197,7 @@ const SubCatLoop = ({ categoryID }) => {
 								);
 							} else {
 								mutate([
-									`updateSubCategory/${data?.data?.subCategory?.id}`,
+									`dashboard/updateSubCategory/${data?.data?.id}`,
 									{ subCategory: arrCheck },
 									"patch",
 								]);

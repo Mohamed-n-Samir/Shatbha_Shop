@@ -22,7 +22,7 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 
 	const { data, isError, error, isSuccess } = useQueryCustom(
 		["cities"],
-		"getAllCities",
+		"dashboard/getAllCities",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -112,7 +112,7 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 								اختر المدينه (ان لم تجد المدينه الخاصه بك فلا
 								يوجد خدمه شحن لها)
 							</option>
-							{data?.data?.allCities?.map((city) => {
+							{data?.data?.map((city) => {
 								return (
 									city.name !== "Admin" && (
 										<option value={city.id} key={city.id}>
@@ -128,7 +128,7 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 									variant="dark py-2 p-3 fs-4"
 									onClick={() => {
 										mutate([
-											`updateUser-admin/${form.id}`,
+											`dashboard/updateUser-admin/${form.id}`,
 											{
 												city: form?.city,
 											},
@@ -157,7 +157,6 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 						)}
 					</Form.Group>
 					<Form.Group controlId="gender" className="my-3">
-						<Form.Label>الجنس</Form.Label>
 						<Form.Group controlId="gender" className="my-3">
 							<Form.Label>الجنس</Form.Label>
 							<br />
@@ -186,7 +185,7 @@ const UpdateUserModal = ({ open, onClose, row }) => {
 									variant="dark py-2 p-3 fs-4"
 									onClick={() => {
 										mutate([
-											`updateUser-admin/${form.id}`,
+											`dashboard/updateUser-admin/${form.id}`,
 											{
 												gender: form?.gender,
 											},

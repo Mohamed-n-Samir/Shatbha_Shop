@@ -26,7 +26,7 @@ const BrandsTable = () => {
 
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["brands-table-data"],
-		"allBrands",
+		"dashboard/allBrands",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -55,18 +55,18 @@ const BrandsTable = () => {
 	});
 
 	useEffect(() => {
-		if (location.state?.id && data?.data?.allBrand) {
+		if (location.state?.id && data?.data) {
 			console.log(location.state?.id);
-			const filteredData = data?.data?.allBrand?.filter((row) => {
+			const filteredData = data?.data?.filter((row) => {
 				return row.id === location?.state?.id;
 			});
 			console.log(filteredData);
 			setTableData(filteredData);
-		} else if (data?.data?.allBrand) {
+		} else if (data?.data) {
 			console.log("form else if");
-			setTableData(data?.data?.allBrand);
+			setTableData(data?.data);
 		}
-	}, [id, data?.data?.allBrand]);
+	}, [id, data?.data]);
 
 	const handleSaveCell = (cell, value) => {
 		switch (cell.column.id) {
@@ -84,7 +84,7 @@ const BrandsTable = () => {
 					});
 				} else {
 					mutate([
-						`updateBrand/${cell.row.original.id}`,
+						`dashboard/updateBrand/${cell.row.original.id}`,
 						{ name: value },
 						"patch",
 					]);
@@ -105,7 +105,7 @@ const BrandsTable = () => {
 					});
 				} else {
 					mutate([
-						`updateBrand/${cell.row.original.id}`,
+						`dashboard/updateBrand/${cell.row.original.id}`,
 						{ description: value },
 						"patch",
 					]);
@@ -113,7 +113,7 @@ const BrandsTable = () => {
 				break;
 			case "url":
 				mutate([
-					`updateBrand/${cell.row.original.id}`,
+					`dashboard/updateBrand/${cell.row.original.id}`,
 					{ url: value },
 					"patch",
 				]);
@@ -132,8 +132,8 @@ const BrandsTable = () => {
 		}
 		//send api delete request here, then refetch or update local table data for re-render
 		mutate([
-			"deleteBrand",
-			{ data: { id: row.getValue("id") } },
+			"dashboard/deleteBrand",
+			{ data: row.getValue("id")},
 			"delete",
 		]);
 	}, []);

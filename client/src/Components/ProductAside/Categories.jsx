@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Categories = () => {
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["sub-categories-data"],
-		"getAllSubCategoryData",
+		"dashboard/getAllSubCategoryData",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,

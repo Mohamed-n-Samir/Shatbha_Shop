@@ -24,7 +24,7 @@ const UsersTable = () => {
 	const queryClient = useQueryClient();
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["users-table-data"],
-		"allUsers",
+		"dashboard/allUsers",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -34,7 +34,7 @@ const UsersTable = () => {
 
 	const { data: cityData, isLoading: isLoadingCity } = useQueryCustom(
 		["city-data"],
-		"getAllCities",
+		"dashboard/getAllCities",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -65,18 +65,18 @@ const UsersTable = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (location.state?.id && data?.data?.allUsers) {
+		if (location.state?.id && data?.data) {
 			console.log(location.state?.id);
-			const filteredData = data?.data?.allUsers?.filter((row) => {
+			const filteredData = data?.data?.filter((row) => {
 				return row.id === location?.state?.id;
 			});
 			console.log(filteredData);
 			setTableData(filteredData);
-		} else if (data?.data?.allUsers) {
+		} else if (data?.data) {
 			console.log("form else if");
-			setTableData(data?.data?.allUsers);
+			setTableData(data?.data);
 		}
-	}, [id, data?.data?.allUsers]);
+	}, [id, data?.data]);
 
 	const handleSaveCell = async (cell, value) => {
 		switch (cell.column.id) {
@@ -114,7 +114,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							firstname: value.split(" ")[0],
 							lastname: value.split(" ")[1],
@@ -152,7 +152,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							email: value.toLowerCase(),
 						},
@@ -185,7 +185,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							mobile: value,
 						},
@@ -208,7 +208,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							city: value,
 						},
@@ -231,7 +231,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							area: value,
 						},
@@ -254,7 +254,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							buildingAndApartment: value,
 						},
@@ -277,7 +277,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							gender: value,
 						},
@@ -300,7 +300,7 @@ const UsersTable = () => {
 					return;
 				} else {
 					mutate([
-						`updateUser-admin/${cell.row.original.id}`,
+						`dashboard/updateUser-admin/${cell.row.original.id}`,
 						{
 							isBlocked: value,
 						},
@@ -351,7 +351,7 @@ const UsersTable = () => {
 			},
 			{
 				accessorFn: (row) => {
-					if (cityData?.data?.allCities) {
+					if (cityData?.data) {
 						return row?.city?.name?.trim();
 					}
 				},
@@ -439,14 +439,16 @@ const UsersTable = () => {
 							>
 								تحديث
 							</Button>
-							{cell.row.original.isBlocked === false ? (
+							{cell.row.original.blocked === false ? (
 								<Button
 									variant="danger fs-5 py-2 px-3"
 									onClick={() => {
 										mutate([
-											`block-user/${cell.row.original.id}`,
-											null,
-											"put",
+											`dashboard/updateUser-admin/${cell.row.original.id}`,
+											{
+												isBlocked: true,
+											},
+											"patch",
 										]);
 									}}
 								>
@@ -457,9 +459,11 @@ const UsersTable = () => {
 									variant="primary fs-5 py-2 px-3"
 									onClick={() => {
 										mutate([
-											`unblock-user/${cell.row.original.id}`,
-											null,
-											"put",
+											`dashboard/updateUser-admin/${cell.row.original.id}`,
+											{
+												isBlocked: false,
+											},
+											"patch",
 										]);
 									}}
 								>
@@ -480,6 +484,7 @@ const UsersTable = () => {
 			},
 		];
 	}, [cityData?.data]);
+
 
 	return (
 		<div className="users-table p-4 fs-3">

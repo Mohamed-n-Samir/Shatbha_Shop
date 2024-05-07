@@ -24,7 +24,7 @@ const CategoryTable = () => {
 
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["category-table-data"],
-		"allCategory",
+		"dashboard/allCategory",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -81,7 +81,7 @@ const CategoryTable = () => {
 		}
 
 		mutate([
-			`updateCategory/${cell.row.original.id}`,
+			`dashboard/updateCategory/${cell.row.original.id}`,
 			{ title: value.trim() },
 			"patch",
 		]);
@@ -95,7 +95,7 @@ const CategoryTable = () => {
 		}
 		//send api delete request here, then refetch or update local table data for re-render
 		mutate([
-			"deleteCategory",
+			"dashboard/deleteCategory",
 			{ data: { id: row.getValue("id") } },
 			"delete",
 		]);

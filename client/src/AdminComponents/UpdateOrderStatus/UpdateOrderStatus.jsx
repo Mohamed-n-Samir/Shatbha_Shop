@@ -76,7 +76,7 @@ const UpdateOrderStatus = ({ open, onClose, row }) => {
 				fontWeight={"bold"}
 				fontSize={"3rem"}
 			>
-				تحديث المستخدم
+				تحديث الطلب
 			</DialogTitle>
 			<DialogContent
 				sx={{
@@ -107,7 +107,7 @@ const UpdateOrderStatus = ({ open, onClose, row }) => {
 									variant="dark py-2 p-3 fs-4"
 									onClick={() => {
 										mutate([
-											`updateOrder/${form.id}`,
+											`dashboard/updateOrder/${form.id}`,
 											{
 												orderStatus: form?.orderStatus,
 											},

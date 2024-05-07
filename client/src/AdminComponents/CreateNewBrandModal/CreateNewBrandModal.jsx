@@ -70,7 +70,7 @@ const CreateNewAdminModal = ({ open, onClose }) => {
 			});
 		}
 		try {
-			mutate(["createBrand", form]);
+			mutate(["dashboard/createBrand", form]);
 		} catch (err) {
 			console.log(err);
 		}

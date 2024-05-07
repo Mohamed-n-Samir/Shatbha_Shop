@@ -6,7 +6,7 @@ import HashLoader from "react-spinners/HashLoader";
 const CatChoose = ({ handleChange }) => {
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["categories-table-data"],
-		"allCategory",
+		"dashboard/allCategory",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,

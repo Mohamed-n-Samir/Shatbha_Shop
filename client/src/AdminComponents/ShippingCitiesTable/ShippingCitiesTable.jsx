@@ -90,7 +90,7 @@ const ShippingCitiesTable = () => {
 						});
 					}
 					mutate([
-						`updateCity/${cell.row.original.id}`,
+						`dashboard/updateCity/${cell.row.original.id}`,
 						{ name: value },
 						"patch",
 					]);
@@ -135,7 +135,7 @@ const ShippingCitiesTable = () => {
 						});
 					}
 					mutate([
-						`updateCity/${cell.row.original.id}`,
+						`dashboard/updateCity/${cell.row.original.id}`,
 						{ shippingCharge: value },
 						"patch",
 					]);
@@ -165,7 +165,7 @@ const ShippingCitiesTable = () => {
 				theme: "dark",
 			});
 		}
-		mutate(["deleteCity", { data: { id: row.getValue("id") } }, "delete"]);
+		mutate(["dashboard/deleteCity", {data: row.getValue("id")}, "delete"]);
 	}, []);
 
 	const columns = useMemo(() => {
@@ -238,7 +238,7 @@ const ShippingCitiesTable = () => {
 					},
 				}}
 				columns={columns}
-				data={data?.data?.allCities ?? []} //data is undefined on first render
+				data={data?.data ?? []} //data is undefined on first render
 				initialState={{
 					showColumnFilters: true,
 				}}

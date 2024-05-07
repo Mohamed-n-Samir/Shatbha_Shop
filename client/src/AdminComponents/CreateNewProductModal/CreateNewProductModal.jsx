@@ -73,7 +73,7 @@ const CreateNewProductModal = ({ open, onClose }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		try {
-			mutate(["createProduct", form]);
+			mutate(["dashboard/createProduct", form]);
 		} catch (err) {
 			console.log(err);
 		}

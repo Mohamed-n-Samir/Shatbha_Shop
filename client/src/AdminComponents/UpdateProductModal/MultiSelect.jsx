@@ -4,7 +4,7 @@ import useQueryCustom from "../../hooks/useQueryCustom";
 const MultiSelect = ({ handleChange }) => {
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["tegs-table-data"],
-		"getAllSubCategory",
+		"dashboard/getAllSubCategory",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -18,8 +18,8 @@ const MultiSelect = ({ handleChange }) => {
 	if (isError) {
 		return <div>error...</div>;
 	}
-	if (data?.data?.subCategories) {
-		const options = data?.data?.subCategories;
+	if (data?.data) {
+		const options = data?.data;
 		return (
 			<Select
 				options={options}

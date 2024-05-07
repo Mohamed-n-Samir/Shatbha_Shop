@@ -20,7 +20,7 @@ const OrdersTable = () => {
 	const queryClient = useQueryClient();
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["orders-table-data"],
-		"getallorders",
+		"dashboard/getallorders",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -66,7 +66,7 @@ const OrdersTable = () => {
 					});
 				} else {
 					mutate([
-						`updateOrder/${cell.row.original.id}`,
+						`dashboard/updateOrder/${cell.row.original.id}`,
 						{ destinationAddress: value },
 						"patch",
 					]);
@@ -75,7 +75,7 @@ const OrdersTable = () => {
 				break;
 			case "notes":
 				mutate([
-					`updateOrder/${cell.row.original.id}`,
+					`dashboard/updateOrder/${cell.row.original.id}`,
 					{ notes: value },
 					"patch",
 				]);
@@ -293,7 +293,7 @@ const OrdersTable = () => {
 					},
 				}}
 				columns={columns}
-				data={data?.data?.alluserorders ?? []} //data is undefined on first render
+				data={data?.data ?? []} //data is undefined on first render
 				initialState={{
 					showColumnFilters: true,
 					columnVisibility: {

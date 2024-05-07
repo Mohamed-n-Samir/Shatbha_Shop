@@ -5,7 +5,7 @@ import HashLoader from "react-spinners/HashLoader";
 const brandChoose = ({ handleChange }) => {
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["brand-table-data"],
-		"allBrands",
+		"dashboard/allBrands",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -33,7 +33,7 @@ const brandChoose = ({ handleChange }) => {
 		return <h1>لا يوجد اقسام</h1>;
 	}
 
-	if (data?.data?.allBrand) {
+	if (data?.data) {
         console.log(data?.data)
 		return (
 				<Form.Group controlId="brand">
@@ -48,7 +48,7 @@ const brandChoose = ({ handleChange }) => {
 						<option value="0" hidden={true}>
                             اختر الماركه
 						</option>
-						{data?.data?.allBrand?.map((brand) => {
+						{data?.data?.map((brand) => {
 							return (
 								brand.name && (
 									<option value={brand.id} key={brand.id}>

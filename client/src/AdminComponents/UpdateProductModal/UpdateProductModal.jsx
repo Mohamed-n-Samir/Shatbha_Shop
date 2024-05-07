@@ -76,6 +76,8 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 		console.log(form);
 	};
 
+	console.log(initState,form)
+
 	const handleMultiSelectChange = (values) => {
 		const myTagsSet = new Set(values.map((value) => value.value));
 		setForm({
@@ -155,7 +157,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 										);
 
 									mutate([
-										`updateProduct/${form.id}`,
+										`dashboard/updateProduct/${form.id}`,
 										{
 											description:
 												form?.description?.trim(),
@@ -194,7 +196,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 								variant="dark py-2 p-3 fs-4"
 								onClick={() => {
 									mutate([
-										`updateProduct/${form.id}`,
+										`dashboard/updateProduct/${form.id}`,
 										{
 											brand: form?.brand,
 										},
@@ -232,7 +234,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 								variant="dark py-2 p-3 fs-4"
 								onClick={() => {
 									mutate([
-										`updateProduct/${form.id}`,
+										`dashboard/updateProduct/${form.id}`,
 										{
 											category: form?.category,
 										},
@@ -284,7 +286,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 												}
 											);
 										mutate([
-											`updateProduct/${form.id}`,
+											`dashboard/updateProduct/${form.id}`,
 											{
 												tags: form?.tags,
 											},
@@ -407,7 +409,7 @@ const UpdateProductModal = ({ open, onClose, row }) => {
 													);
 
 												mutate([
-													`updateProduct/${form.id}`,
+													`dashboard/updateProduct/${form.id}`,
 													{
 														images: form?.images,
 													},

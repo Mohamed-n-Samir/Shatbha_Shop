@@ -30,6 +30,10 @@ const CreateNewAdminModal = ({ open, onClose }) => {
 		password: "",
 		mobile: "",
 		gender: "",
+		city: "66389dc6c4abaed3b9933865",
+		area: "admin",
+		buildingAndApartment:"admin"
+		
 	});
 	const [errors, setErrors] = useState({});
 	const queryClient = useQueryClient();
@@ -63,7 +67,7 @@ const CreateNewAdminModal = ({ open, onClose }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		try {
-			mutate(["createAdmin", form]);
+			mutate(["dashboard/createAdmin", form]);
 		} catch (err) {
 			console.log(err);
 		}

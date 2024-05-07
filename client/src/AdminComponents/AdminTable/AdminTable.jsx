@@ -23,7 +23,7 @@ const AdminTable = () => {
 
 	const { data, isError, isFetching, isLoading, refetch } = useQueryCustom(
 		["admins-table-data"],
-		"allAdmins",
+		"dashboard/allAdmins",
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
@@ -193,7 +193,7 @@ const AdminTable = () => {
 					},
 				}}
 				columns={columns}
-				data={data?.data?.allAdmins ?? []} //data is undefined on first render
+				data={data?.data ?? []} //data is undefined on first render
 				initialState={{
 					showColumnFilters: true,
 					columnVisibility: {
