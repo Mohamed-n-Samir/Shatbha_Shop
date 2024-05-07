@@ -14,7 +14,7 @@ To get started with the project, follow these steps:
 2. Install the Docker.
 3. Open your Termenal then type "docker compose up" in Root Directory.
 4. Wait the container to be initialized.
-5. Access the website through your web browser And you'r Done.
+5. Access the website through your web browser ("http://localhost:5173") And you'r Done.
 
 ## ⚙️ Functional Requirements
 
