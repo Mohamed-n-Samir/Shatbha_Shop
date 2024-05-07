@@ -1,0 +1,59 @@
+version: "3.8"
+
+networks:
+  mynetwork:
+    driver: bridge
+
+services:
+  maingateway:
+    container_name: maingatwayContainer
+    build:
+      context: ./Server
+      dockerfile: ./mainapi/Dockerfile
+    image: maingateway:v2
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
+    networks:
+      - mynetwork
+
+  orderservice:
+    container_name: orderserviceContainer
+    build:
+      context: ./Server
+      dockerfile: ./orderservice/Dockerfile
+    image: orderservice:v1
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+
+    networks:
+      - mynetwork
+
+  frontend:
+    container_name: clientContainer
+    build:
+      context: ./client
+    image: frontend:v2
+    restart: unless-stopped
+    ports:
+      - 5173:5173
+
+    networks:
+      - mynetwork
+
+  mongodb:
+    image: mongo:latest # use the latest image.
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      # set required env variables to access mongo
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    # volumes:
+      # optional to preserve database after container is deleted.
+      # - ./database-data:/data/db
+
